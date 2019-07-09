@@ -1,4 +1,4 @@
-# **ReelTalk**
+# 🎥 **ReelTalk** 🎞️ 🍿🎬
 
 ## Introduction:
 Ever have those moments when you want to gush about an awesome movie or show that you *just* finished watching? Look no further! **ReelTalk** connects you with other avid fans so you can have those extended conversations
