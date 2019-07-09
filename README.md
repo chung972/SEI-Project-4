@@ -5,8 +5,6 @@ Ever have those moments when you want to gush about an awesome movie or show tha
 
 (TODO: flesh out intro)
 
----
-
 ## Technologies Used:
 - **M**ongoDB/Mongoose
 - **E**xpress
@@ -15,14 +13,8 @@ Ever have those moments when you want to gush about an awesome movie or show tha
 
 (TODO: add an image where you have all the logos arranged together)
 
----
-
 ## Getting Started:
 
----
-
 ## Unsolved Problems:
-
----
 
 ## Future Enhancements:
