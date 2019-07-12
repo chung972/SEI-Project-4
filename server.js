@@ -5,12 +5,15 @@ const logger = require('morgan');
 
 const app = express();
 
+// socket.io needs to connect to http server
+const http = require('http').Server(app);
+require('./io').init(http);
+
 require('dotenv').config();
 require('./config/database');
 
 app.use(logger('dev'));
 app.use(express.json());
-
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
