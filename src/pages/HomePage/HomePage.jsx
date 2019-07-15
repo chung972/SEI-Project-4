@@ -1,13 +1,10 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar";
 
 const HomePage = (props) => {
-    return(
-        <NavBar 
-            user={props.user}
-            handleLogout={props.handleLogout}
-        />
-    
+    return (
+        <div>
+            <h1>Home</h1>
+        </div>
     );
 }
 
