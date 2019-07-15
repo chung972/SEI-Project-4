@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import userService from "../../utils/userService";
-import tokenService from "../../utils/tokenService";
+// import tokenService from "../../utils/tokenService";
 import HomePage from "../../pages/HomePage/HomePage";
 import SignupPage from "../../pages/SignupPage/SignupPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import MoviePage from "../../pages/MoviePage/MoviePage";
 import NavBar from "../../components/NavBar/NavBar";
+import getMovies from "../../utils/omdb-api";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: userService.getUser()  // go to function declaration for more info
+      user: userService.getUser(),  // go to function declaration for more info
+      movies: [],
+      searchTerm: ''
 
     }
   }
+
+  // componentDidMount() {
+  //   const movieList = getMovies()
+  //   this.setState({movies:movieList})
+  // }
 
   handleSignupOrLogin = () => {
     this.setState({ user: userService.getUser() });
@@ -35,9 +43,27 @@ class App extends Component {
   }
 
 
+  handleSubmit = async (e) => {
+    console.log("in handle submit");
+    e.preventDefault();
+    try {
+      getMovies(this.state.searchTerm, this.asyncMovieStateUpdate)
+      // this.setState({ movies: movieList })
+    } catch (err) {
+      // Invalid user data (probably duplicate email)
+    }
+  }
 
+  asyncMovieStateUpdate = (movieList) => {
+    this.setState({movies: movieList})
+  }
 
-
+  handleChange = (e) => {
+    this.setState({
+      // Using ES2015 Computed Property Names
+      [e.target.name]: e.target.value
+    });
+  }
 
   render() {
     return (
@@ -46,6 +72,12 @@ class App extends Component {
         <header>
           <h1>ReelTalk</h1>
         </header>
+
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="searchTerm" value={this.state.searchTerm} placeholder="Movie title..." onChange={this.handleChange} />
+          <input type="submit" value="Submit"/>
+        </form>
+
         <NavBar
           user={this.state.user}
           handleLogout={this.handleLogout}
@@ -69,8 +101,6 @@ class App extends Component {
           } />
           <Route exact path="/movie" render={() =>
             <MoviePage
-              user={this.state.user}
-              handleLogout={this.handleLogout}
             />
           } />
         </Switch>
