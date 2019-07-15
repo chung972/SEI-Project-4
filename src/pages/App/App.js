@@ -8,16 +8,13 @@ import SignupPage from "../../pages/SignupPage/SignupPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import MoviePage from "../../pages/MoviePage/MoviePage";
 import NavBar from "../../components/NavBar/NavBar";
-import getMovies from "../../utils/omdb-api";
+
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       user: userService.getUser(),  // go to function declaration for more info
-      movies: [],
-      searchTerm: ''
-
     }
   }
 
@@ -42,29 +39,6 @@ class App extends Component {
     // msgBoard.appendChild(node);
   }
 
-
-  handleSubmit = async (e) => {
-    console.log("in handle submit");
-    e.preventDefault();
-    try {
-      getMovies(this.state.searchTerm, this.asyncMovieStateUpdate)
-      // this.setState({ movies: movieList })
-    } catch (err) {
-      // Invalid user data (probably duplicate email)
-    }
-  }
-
-  asyncMovieStateUpdate = (movieList) => {
-    this.setState({movies: movieList})
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      // Using ES2015 Computed Property Names
-      [e.target.name]: e.target.value
-    });
-  }
-
   render() {
     return (
       // TODO: have a navbar OUTSIDE of the switch 
@@ -72,12 +46,6 @@ class App extends Component {
         <header>
           <h1>ReelTalk</h1>
         </header>
-
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" name="searchTerm" value={this.state.searchTerm} placeholder="Movie title..." onChange={this.handleChange} />
-          <input type="submit" value="Submit"/>
-        </form>
-
         <NavBar
           user={this.state.user}
           handleLogout={this.handleLogout}
