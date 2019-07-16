@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import userService from "../../utils/userService";
+import chatboardService from "../../utils/chatboardService";
 // import tokenService from "../../utils/tokenService";
 import HomePage from "../../pages/HomePage/HomePage";
 import SignupPage from "../../pages/SignupPage/SignupPage";
@@ -15,13 +16,11 @@ class App extends Component {
     super();
     this.state = {
       user: userService.getUser(),  // go to function declaration for more info
+      chatBoards: [],
+      idList: []
     }
   }
 
-  // componentDidMount() {
-  //   const movieList = getMovies()
-  //   this.setState({movies:movieList})
-  // }
 
   handleSignupOrLogin = () => {
     this.setState({ user: userService.getUser() });
@@ -39,6 +38,29 @@ class App extends Component {
     // msgBoard.appendChild(node);
   }
 
+  getAllBoards = () => {
+    chatboardService.getAllChatBoards(this.asyncGetBoards);
+    // console.log(list);
+    // console.log(this.state.chatBoards)
+    // console.log("end of getAllBoards");
+  }
+
+  asyncGetBoards = (boardList) => {
+    this.setState({ chatBoards: boardList })
+  }
+
+  asyncAddId = (movieID) => {
+    let tempIdList = [...this.state.idList, movieID]
+    this.setState({ idList: tempIdList});
+  }
+
+  componentDidMount = async () => {
+    // because App.js will default to the home page, we call getAllBoards()
+    // in componentDidMount, so that the HomePage component gets passed the most
+    // up-to-date list of existing chatboards
+    await this.getAllBoards();
+  }
+
   render() {
     return (
       // TODO: have a navbar OUTSIDE of the switch 
@@ -51,8 +73,13 @@ class App extends Component {
           handleLogout={this.handleLogout}
         />
         <Switch>
-          <Route exact path="/" render={() =>
+          <Route exact path="/" render={({ match, history }) =>
             <HomePage
+              match={match}
+              history={history}
+              idList={this.state.idList}
+              asyncAddId={this.asyncAddId}
+              chatBoards={this.state.chatBoards}
             />
           } />
           <Route exact path="/signup" render={({ history }) =>
@@ -67,8 +94,10 @@ class App extends Component {
               handleSignupOrLogin={this.handleSignupOrLogin}
             />
           } />
-          <Route exact path="/movie" render={() =>
+          <Route exact path="/movies" render={() =>
             <MoviePage
+              chatBoards={this.state.chatBoards}
+              getAllBoards={this.getAllBoards}
             />
           } />
         </Switch>
