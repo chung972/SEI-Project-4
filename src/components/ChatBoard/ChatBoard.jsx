@@ -1,9 +1,12 @@
 import React, {Component} from "react";
 
-class ChatBoard extends Component {
+export class ChatBoard extends Component {
     state = {
-
+        movieTitle: '',
+        movieDescription: '',
+        chatHistory: []
     }
+
 
     render() {
         return(
@@ -12,4 +15,3 @@ class ChatBoard extends Component {
     }
 }
 
-export default ChatBoard;

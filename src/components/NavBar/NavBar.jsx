@@ -19,7 +19,7 @@ const NavBar = (props) => {
         <div>
             <Link to="/">Home</Link>
             &nbsp;&nbsp;|&nbsp;&nbsp;
-            <Link to="/movie">Random Movie</Link>
+            <Link to="/movies">Chatrooms</Link>
             &nbsp;&nbsp;|&nbsp;&nbsp;
             {nav}
         </div>
