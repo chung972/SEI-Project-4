@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import userService from '../../utils/userService';
+import { Form, FormGroup, Label, Input, Col, Button } from "reactstrap";
 
 class SignupForm extends Component {
 
@@ -38,25 +39,48 @@ class SignupForm extends Component {
   render() {
     return (
       <div>
-        <header>Sign Up</header>
-        <form onSubmit={this.handleSubmit} >
-          <div>
-              <input type="text" placeholder="Name" value={this.state.name} name="name" onChange={this.handleChange} />
-          </div>
-          <div>
-              <input type="email" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} />
-          </div>
-          <div>
-              <input type="password" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} />
-          </div>
-          <div>
-              <input type="password" placeholder="Confirm Password" value={this.state.passwordConf} name="passwordConf" onChange={this.handleChange} />
-          </div>
-          <div>
-              <button disabled={this.isFormInvalid()}>Sign Up</button>&nbsp;&nbsp;
+        <h2>Sign Up</h2>
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup row>
+            <Label for="name" sm={2}>Name:</Label>
+            <Col sm={10}>
+              <Input type="name" name="name" id="name" placeholder="Bruce Wayne" value={this.state.name} onChange={this.handleChange}></Input>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="email" sm={2}>Email:</Label>
+            <Col sm={10}>
+              <Input type="email" name="email" id="email" placeholder="example@email.com" value={this.state.email} onChange={this.handleChange}></Input>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="password" sm={2}>Password:</Label>
+            <Col sm={10}>
+              <Input type="password" name="password" id="password" placeholder="abc123" value={this.state.password} onChange={this.handleChange}></Input>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="passwordConf" sm={2}>Confirm PW:</Label>
+            <Col sm={10}>
+              <Input type="password" name="passwordConf" id="passwordConf" placeholder="abc123" value={this.state.passwordConf} onChange={this.handleChange}></Input>
+            </Col>
+          </FormGroup>
+          <FormGroup check row>
+            <Col sm={{ size: 10, offset: 2 }}>
+              <Button disabled={this.isFormInvalid()}>Submit</Button>&nbsp;&nbsp;
               <Link to='/'>Cancel</Link>
-          </div>
-        </form>
+            </Col>
+          </FormGroup>
+        </Form>
+
+
+
+
+
+
+
+
+
       </div>
     );
   }
