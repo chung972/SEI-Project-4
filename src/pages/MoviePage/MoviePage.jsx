@@ -17,12 +17,13 @@ class MoviePage extends Component {
 
         return (
             <div>
-                {this.props.chatBoards.map((chatBoard, idx)=>
-                    <div key={idx}>{chatBoard.movieTitle}</div>
+                <h3>Chatrooms</h3>
+                {this.props.chatBoards.map((chatBoard, idx) =>
+                    <ChatBoard
+                        key={idx}
+                        chatBoard={chatBoard}
+                    />
                 )}
-
-
-                <ChatBoard />
             </div>
         );
     }

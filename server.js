@@ -2,12 +2,14 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
+const Chatkit = require("@pusher/chatkit-server");
 
 const app = express();
 
-// socket.io needs to connect to http server
-const http = require('http').Server(app);
-require('./io').init(http);
+const chatkit = new Chatkit.default({
+  instanceLocator: "v1:us1:b93e8a79-4f9a-41f3-b407-1757f163d0c3",
+  key: "0b7aa237-a82a-438c-ad8b-3980c2eab270:wN+3wbyIzdEokkobixJm0UnGusKSVuehDV1uswGu8Vo="
+})
 
 require('dotenv').config();
 require('./config/database');

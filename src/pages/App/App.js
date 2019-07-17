@@ -9,6 +9,7 @@ import SignupPage from "../../pages/SignupPage/SignupPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import MoviePage from "../../pages/MoviePage/MoviePage";
 import NavBar from "../../components/NavBar/NavBar";
+import ChatPage from "../ChatPage/ChatPage";
 
 
 class App extends Component {
@@ -31,15 +32,8 @@ class App extends Component {
     this.setState({ user: null });
   }
 
-  displayMsg({ username, message, timestamp }) {
-    // var node = document.createElement("li");
-    // var msbItm = document.createTextNode(`[${timestamp}] ${username} says: ${message}`);
-    // node.appendChild(msbItm);
-    // msgBoard.appendChild(node);
-  }
-
   getAllBoards = () => {
-    chatboardService.getAllChatBoards(this.asyncGetBoards);
+    chatboardService.getAllChatBoards(this.asyncGetBoards, this.asyncAddId);
     // console.log(list);
     // console.log(this.state.chatBoards)
     // console.log("end of getAllBoards");
@@ -51,7 +45,7 @@ class App extends Component {
 
   asyncAddId = (movieID) => {
     let tempIdList = [...this.state.idList, movieID]
-    this.setState({ idList: tempIdList});
+    this.setState({ idList: tempIdList });
   }
 
   componentDidMount = async () => {
@@ -66,12 +60,11 @@ class App extends Component {
       // TODO: have a navbar OUTSIDE of the switch 
       <div>
         <header>
-          <h1>ReelTalk</h1>
+          <NavBar
+            user={this.state.user}
+            handleLogout={this.handleLogout}
+          />
         </header>
-        <NavBar
-          user={this.state.user}
-          handleLogout={this.handleLogout}
-        />
         <Switch>
           <Route exact path="/" render={({ match, history }) =>
             <HomePage
@@ -80,6 +73,7 @@ class App extends Component {
               idList={this.state.idList}
               asyncAddId={this.asyncAddId}
               chatBoards={this.state.chatBoards}
+              getAllBoards={this.getAllBoards}
             />
           } />
           <Route exact path="/signup" render={({ history }) =>
@@ -98,6 +92,11 @@ class App extends Component {
             <MoviePage
               chatBoards={this.state.chatBoards}
               getAllBoards={this.getAllBoards}
+            />
+          } />
+
+          <Route exact path="/rooms" render={() =>
+            <ChatPage
             />
           } />
         </Switch>

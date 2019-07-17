@@ -1,16 +1,17 @@
 import React from "react";
 import SearchForm from "../../components/SearchForm/SearchForm";
 
-const HomePage = ({match, history, idList, asyncAddId, chatBoards}) => {
+const HomePage = ({match, history, idList, asyncAddId, chatBoards, getAllBoards}) => {
     return (
         <div>
-            <h1>Home</h1>
+            <h2>Home</h2>
             <SearchForm 
                 match={match}
                 history={history}
                 idList={idList}
                 asyncAddId={asyncAddId}
                 chatBoards={chatBoards}
+                getAllBoards={getAllBoards}
             />
         </div>
     );

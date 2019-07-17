@@ -41,6 +41,13 @@ class SearchForm extends Component {
         this.setState({ searchTerm: '' });
     }
 
+    componentDidMount = async () => {
+        // because App.js will default to the home page, we call getAllBoards()
+        // in componentDidMount, so that the HomePage component gets passed the most
+        // up-to-date list of existing chatboards
+        await this.props.getAllBoards();
+    }
+
     handleChange = (e) => {
         this.setState({
             // leverage ES2015 COMPUTED PROPERTY NAMES; what the line below allows us to do is
@@ -57,7 +64,6 @@ class SearchForm extends Component {
         // chat room; hence, that is why at the bottom of this function, you see .createChatBoard()
         const tempMovieTitle = movie.Title;
         const movieID = movie.imdbID;
-        this.props.asyncAddId(movieID);
         console.log("you in handleclick in SearchForm");
         console.log(tempMovieTitle);
         await this.setState(prevState => ({
@@ -102,7 +108,7 @@ class SearchForm extends Component {
                                 >
                                     Create Chatroom
                                 </span>
-                            } 
+                            }
                         </li>
 
                     )}

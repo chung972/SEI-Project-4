@@ -1,29 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
-const NavBar = (props) => {
+class NavBar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.state = {
+            collapsed: true
+        };
+    }
+
+    toggleNavbar() {
+        this.setState({
+            collapsed: !this.state.collapsed
+        });
+    }
     // TODO: flesh out the links in ternary below and for Random Movie
     //       maybe get rid of the pipes too and let css do the styling
-    let nav = props.user ?
-        <span>
-            <Link to="" onClick={props.handleLogout}>Log Out</Link>
-        </span>
-        :
-        <span>
-            <Link to="/login">Log In</Link>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <Link to="/signup">Sign Up</Link>
-        </span>
 
-    return (
-        <div>
-            <Link to="/">Home</Link>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <Link to="/movies">Chatrooms</Link>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            {nav}
-        </div>
-    );
-};
+    handleLogoutClick = () => {
+        this.props.handleLogout();
+        this.toggleNavbar();
+    }
+
+    render() {
+        return (
+            <Navbar color="faded" light>
+                <NavbarBrand href="/" className="mr-auto"><h1>ReelTalk</h1></NavbarBrand>
+                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                <Collapse isOpen={!this.state.collapsed} navbar>
+                    <Nav navbar>
+                        <NavItem>
+                            <Link to="/" onClick={this.toggleNavbar}>Home</Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link to="/movies" onClick={this.toggleNavbar}>Chatrooms</Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link to="/rooms" onClick={this.toggleNavbar}>Your Rooms</Link>
+                        </NavItem>
+                        {this.props.user ?
+                            <span>
+                                <NavItem>
+                                    <Link to="" onClick={this.handleLogoutClick}>Log Out</Link>
+                                </NavItem>
+                            </span>
+                            :
+                            <span>
+                                <NavItem>
+                                    <Link to="/login" onClick={this.toggleNavbar}>Log In</Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link to="/signup" onClick={this.toggleNavbar}>Sign Up</Link>
+                                </NavItem>
+                            </span>
+                        }
+                    </Nav>
+                </Collapse>
+            </Navbar>
+
+        );
+    }
+}
 
 export default NavBar;

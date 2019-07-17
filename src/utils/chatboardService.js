@@ -20,13 +20,19 @@ function createChatBoard(chatBoard) {
     return;
 }
 
-function getAllChatBoards(asyncGetBoards){
+function getAllChatBoards(asyncGetBoards, asyncAddId){
     fetch(BASE_URL, {
         mode: "cors", 
         method:"GET",
     })
     .then(res => res.json())
-    .then(data => asyncGetBoards(data));
+    .then(data => {
+        asyncGetBoards(data);
+        console.log(data);
+        data.forEach(element => {
+            asyncAddId(element.imdbID);
+        });
+    });
     // you resolve the json in the first .then, and then you resolve the PROMISE
     // returned from THAT .then in the SECOND .then (the promise resolves to data);
     // this data object is what we want to pass into asyncGetBoards
