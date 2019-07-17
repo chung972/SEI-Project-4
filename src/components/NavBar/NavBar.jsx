@@ -38,9 +38,13 @@ class NavBar extends Component {
                         <NavItem>
                             <Link to="/movies" onClick={this.toggleNavbar}>Chatrooms</Link>
                         </NavItem>
+                        {(this.props.user) ?
                         <NavItem>
                             <Link to="/rooms" onClick={this.toggleNavbar}>Your Rooms</Link>
                         </NavItem>
+                            :
+                        <span></span>
+                        }
                         {this.props.user ?
                             <span>
                                 <NavItem>
