@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import Emoji from "../Emoji/Emoji";
 
 class NavBar extends Component {
     constructor(props) {
@@ -28,7 +29,15 @@ class NavBar extends Component {
     render() {
         return (
             <Navbar color="faded" light>
-                <NavbarBrand href="/" className="mr-auto"><h1>ReelTalk</h1></NavbarBrand>
+                <NavbarBrand href="/" className="mr-auto">
+                    <h1>
+                        <Emoji symbol="🎥" label="camera"/>&nbsp;
+                        ReelTalk&nbsp;
+                        <Emoji symbol="🎬" label="clapper"/>&nbsp;
+                        <Emoji symbol="🎞️" label="reel"/>&nbsp;
+                        <Emoji symbol="🍿" label="popcorn"/>
+                    </h1>
+                </NavbarBrand>
                 <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                 <Collapse isOpen={!this.state.collapsed} navbar>
                     <Nav navbar>
