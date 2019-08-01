@@ -27,5 +27,6 @@ Ever have those moments when you want to gush about an awesome movie or show tha
 - Allow users to save their chatrooms
 - Allow users to perform CUD operations on messages
 - Display most populated chatboards
+- Add a carousel (see Bootstrap or Materialize) of most popular chatboards
 - Have a link on the NavBar that will take you to a random chatboard
 
